@@ -1,28 +1,27 @@
-{% extends "tourist_attractions/base.html"%}
-{% load static%}
+{% extends 'tourist_attractions/base.html' %}
+{% load static %}
+
 {% block head %}
-<link rel='stylesheet' href='{% static 'tourist_attractions/style.css' %}'>
+<link rel="stylesheet" href="{% static 'tourist_attractions/style.css' %}">
 {% endblock %}
 
 {% block content %}
-<h1>This is a list of attractions in America</h1>
-<table>
-    <tr> 
-        
-        <th>Attraction</th>
-        <th>State</th>
-        <th>State details</th>
-        {% for item in attractions|dictsort:"state" %}
-        <tr>
-            <td>{{ item.attraction_name }}</td>
-            <td>{{ item.state }}</td>
-            <td> 
-                <a href="{% url 'details' item.state|slugify %}">State details</a>
-                
-            </td>
-        </tr>
-        {% endfor %}
+<h1>This is a list of some attractions in America!</h1>
 
-    <tr>
+<table>
+  <tr>
+    <th>Attraction</th>
+    <th>State</th>
+    <th>State Details</th>
+  </tr>
+  {% for item in attractions|dictsort:'homeState.stateName' %}
+  <tr>
+    <td>{{ item.attractionName }}</td>
+    <td>{{ item.homeState }}</td>
+    <td><a href="{% url 'details' item.homeState|slugify %}">State Details</a></td>
+    </tr>
+    {% endfor %}
 </table>
+<a href='{% url 'statecreate' %}'>Add a state<a>
+<a href='{% url 'attractioncreate' %}'>Add a Attraction<a>
 {% endblock %}
